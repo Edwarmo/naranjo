@@ -1,0 +1,32 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "name": "Espresso",
+      "description": "Café fuerte y concentrado preparado con granos de alta calidad.",
+      "type": "Café",
+      "price": 3.99
+    },
+    {
+      "id": 2,
+      "name": "Latte",
+      "description": "Espresso con leche vaporizada, suave y cremoso.",
+      "type": "Café",
+      "price": 4.99
+    },
+    {
+      "id": 3,
+      "name": "Croissant",
+      "description": "Croissant fresco y crujiente, perfecto para acompañar tu café.",
+      "type": "Comida",
+      "price": 2.99
+    },
+    {
+      "id": 4,
+      "name": "Muffin de Arándanos",
+      "description": "Muffin esponjoso con arándanos frescos.",
+      "type": "Comida",
+      "price": 3.49
+    }
+  ]
+}
