@@ -76,8 +76,8 @@ const Cart: React.FC = () => {
 
               {/* Items List */}
               {cartItems.map((item, index) => (
-                <div 
-                  key={item.id} 
+                <div
+                  key={item.id}
                   className="bg-gray-50 rounded-lg border border-gray-200 overflow-hidden relative"
                   onMouseEnter={() => setHoveredItem(item.id)}
                   onMouseLeave={() => setHoveredItem(null)}
@@ -104,7 +104,7 @@ const Cart: React.FC = () => {
                       <div className="flex-1 min-w-0">
                         <h3 className="font-semibold text-gray-800 mb-1">{item.name}</h3>
                         <p className="text-sm text-gray-500 mb-2">Precio: ${item.price.toFixed(2)}</p>
-                        
+
                         {/* Product Options - Show on hover */}
                         {hoveredItem === item.id && item.options && item.options.length > 0 && (
                           <div className="mb-3 p-2 bg-amber-50 rounded border border-amber-200">
@@ -121,7 +121,7 @@ const Cart: React.FC = () => {
                             </div>
                           </div>
                         )}
-                        
+
                         {/* Quantity Controls */}
                         <div className="flex items-center space-x-3">
                           <span className="text-sm text-gray-600">Cantidad:</span>
@@ -134,9 +134,9 @@ const Cart: React.FC = () => {
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 12H4" />
                               </svg>
                             </button>
-                            
+
                             <span className="w-10 text-center text-lg font-bold text-gray-800">{item.quantity}</span>
-                            
+
                             <button
                               onClick={() => increaseQuantity(item.id)}
                               className="w-8 h-8 bg-amber-600 text-white rounded-full flex items-center justify-center hover:bg-amber-700 transition-colors"
@@ -178,24 +178,26 @@ const Cart: React.FC = () => {
           </div>
 
           {/* Footer with Total - Always Visible */}
-          <div className="border-t border-gray-200 p-4 bg-gray-50 flex-shrink-0">
+          <div className="border-t border-gray-200 p-4 pb-[calc(env(safe-area-inset-bottom)+1rem)] bg-gray-50 flex-shrink-0">
+
             <div className="flex justify-between items-center mb-3">
               <span className="text-sm text-gray-600">Total del Pedido:</span>
               <span className="text-xl font-bold text-amber-800">${totalPrice.toFixed(2)}</span>
             </div>
-            <button 
+            <button
               onClick={handleCheckout}
               className="w-full bg-green-600 text-white py-3 px-4 rounded-lg hover:bg-green-700 transition-colors font-semibold text-base"
             >
               Finalizar Compra
             </button>
           </div>
+
         </div>
       )}
 
       {/* Backdrop */}
       {isOpen && (
-        <div 
+        <div
           className="fixed inset-0 z-[140] bg-black bg-opacity-50"
           onClick={() => setIsOpen(false)}
         />

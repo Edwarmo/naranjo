@@ -19,7 +19,7 @@ const Navbar = () => {
   return (
     <>
       <header className="bg-black/40 backdrop-blur-md p-4 flex justify-between items-center relative sticky top-0 z-[100] border-b border-white/30">
-        <div className="flex items-center gap-2 ml-40">
+        <div className="flex items-center gap-2 ml-10">
           <img
             src="https://raw.githubusercontent.com/Edwarmo/images/main/Alforja_logo.png"
             alt="Alforja Café Logo"
@@ -77,7 +77,7 @@ const Navbar = () => {
               <div className="space-y-2">
                 <h3 className="text-amber-400 font-semibold text-sm uppercase tracking-wide">Servicios</h3>
                 <div className="space-y-1 text-sm text-gray-300">
-                  <p>• Venta de repuestos</p>
+                  <p>• Venta de cafe</p>
                   <p>• Asesoría técnica</p>
                   <p>• Envío a domicilio</p>
                   <p>• Garantía en productos</p>

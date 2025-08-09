@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 import MenuToggle from '../../components/MenuToggle';
 import Navigation from '../../components/Navigation';
@@ -64,8 +63,8 @@ const HomePage: React.FC = () => {
         <div className="absolute inset-0 bg-black bg-opacity-20 z-10"></div>
 
         {/* Header personalizado para HomePage */}
-        <header className="relative z-20 bg-black/20 backdrop-blur-sm p-4 flex justify-between items-center sticky top-0 z-[100] border-b border-white/10">
-          <div className="flex items-center gap-2">
+        <header className="relative z-20 bg-black/20 backdrop-blur-sm p-4 flex justify-between items-center sticky top-0 z-[100] border-b border-white/10 ">
+          <div className="flex items-center gap-2 ml-10">
             <img
               src="https://raw.githubusercontent.com/Edwarmo/images/main/Alforja_logo.png"
               alt="Alforja Café Logo"
@@ -176,7 +175,7 @@ const HomePage: React.FC = () => {
               
               {/* Subtítulo */}
               <p className="text-base md:text-xl lg:text-2xl text-gray-200 mb-6 md:mb-10 max-w-3xl mx-auto leading-relaxed px-4">
-                Tu tienda de confianza para repuestos automotrices de alta calidad
+                Tu tienda de confianza para cafe de alta calidad
               </p>
 
               {/* Botones de acción */}
