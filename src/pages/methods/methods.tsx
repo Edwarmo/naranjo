@@ -130,6 +130,69 @@ const Methods: React.FC = () => {
         </div>
       ) : (
         methods.map((method, index) => {
+        // Detectar si es móvil
+        const isMobile = window.innerWidth < 768;
+        
+        if (isMobile) {
+          // Versión móvil sin animaciones
+          return (
+            <div key={method.id} className={`py-8 px-4 ${index % 2 === 0 ? 'animate-slide-in-right' : 'animate-slide-in-left'}`}>
+              <div className="bg-gradient-to-br from-amber-900/20 to-orange-900/20 rounded-2xl p-6 mb-6">
+                <style jsx>{`
+                  @keyframes slideInRight {
+                    from { transform: translateX(100%); opacity: 0; }
+                    to { transform: translateX(0); opacity: 1; }
+                  }
+                  @keyframes slideInLeft {
+                    from { transform: translateX(-100%); opacity: 0; }
+                    to { transform: translateX(0); opacity: 1; }
+                  }
+                  .animate-slide-in-right {
+                    animation: slideInRight 0.6s ease-out;
+                  }
+                  .animate-slide-in-left {
+                    animation: slideInLeft 0.6s ease-out;
+                  }
+                `}</style>
+                <img
+                  src={method.image}
+                  alt={method.name}
+                  className="w-full h-64 object-cover rounded-xl mb-4"
+                />
+                <h2 className="text-2xl font-bold text-white text-center mb-6">{method.name}</h2>
+                
+                <div className="space-y-4">
+                  <div className="bg-gradient-to-br from-amber-900/95 to-orange-900/85 p-4 rounded-xl backdrop-blur-sm border border-amber-700/30">
+                    <h3 className="text-yellow-300 font-bold text-lg mb-3">Maneras de Usar</h3>
+                    <p className="text-gray-300 text-sm mb-4">{method.usage}</p>
+                    <div className="space-y-2">
+                      <p className="text-xs text-amber-400"><strong>Molienda:</strong> {method.grind}</p>
+                      <p className="text-xs text-amber-400"><strong>Proporción:</strong> {method.ratio}</p>
+                    </div>
+                  </div>
+                  
+                  <div className="bg-gradient-to-br from-green-900/95 to-emerald-900/85 p-4 rounded-xl backdrop-blur-sm border border-green-700/30">
+                    <h3 className="text-green-400 font-bold text-lg mb-3">{method.name}</h3>
+                    <p className="text-gray-300 text-sm mb-4">{method.description}</p>
+                    <div className="space-y-4">
+                      <div className="text-2xl font-bold text-green-400">
+                        ${method.price.toLocaleString('es-CO')}
+                      </div>
+                      <button
+                        onClick={() => handleAddToCart(method)}
+                        className="w-full bg-green-600 hover:bg-green-700 text-white py-3 px-4 rounded-lg transition-colors duration-200 font-semibold shadow-lg"
+                      >
+                        Agregar al Carrito
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          );
+        }
+        
+        // Versión desktop con animaciones
         const sectionOffset = index * 800;
         const progress = Math.max(0, Math.min(1, (scrollY - sectionOffset) / 600));
         const imageWidth = progress > 0.3 ? '24rem' : '100vw';
@@ -172,10 +235,10 @@ const Methods: React.FC = () => {
             <div className="relative z-10 flex flex-col items-center">
               {/* Imagen */}
               <div 
-                className={`relative transition-all duration-1000 ease-out overflow-hidden shadow-2xl ${imageRounded} mb-8`}
+                className={`relative transition-all duration-1000 ease-out overflow-hidden shadow-2xl ${imageRounded} mb-4 md:mb-8`}
                 style={{
-                  width: imageWidth,
-                  height: imageHeight,
+                  width: progress > 0.3 ? 'min(24rem, 90vw)' : '100vw',
+                  height: progress > 0.3 ? 'min(32rem, 60vh)' : '50vh',
                   transform: `translateY(${imageTranslateY}px)`
                 }}
               >
@@ -194,7 +257,7 @@ const Methods: React.FC = () => {
               </div>
 
               {/* Contenido centrado debajo de la imagen */}
-              <div className={`flex flex-col md:flex-row gap-8 items-center justify-center transition-all duration-700 ${
+              <div className={`flex flex-col md:flex-row gap-4 md:gap-8 items-center justify-center transition-all duration-700 px-4 ${
                 progress > 0.2 ? 'opacity-100' : 'opacity-0'
               }`} style={{
                 transform: `translateY(${imageTranslateY}px)`
@@ -208,7 +271,7 @@ const Methods: React.FC = () => {
                       ? `opacity-0 ${sideEnter}` 
                       : exitDown
                 }`}>
-                  <div className="bg-gradient-to-br from-amber-900/95 to-orange-900/85 p-6 rounded-xl backdrop-blur-sm border border-amber-700/30 w-80">
+                  <div className="bg-gradient-to-br from-amber-900/95 to-orange-900/85 p-4 md:p-6 rounded-xl backdrop-blur-sm border border-amber-700/30 w-full max-w-80 mx-auto">
                     <h3 className="text-yellow-300 font-bold text-lg mb-3">Maneras de Usar</h3>
                     <p className="text-gray-300 text-sm mb-4">{method.usage}</p>
                     <div className="space-y-2">
@@ -226,7 +289,7 @@ const Methods: React.FC = () => {
                       ? 'opacity-0 translate-x-full' 
                       : exitDown
                 }`}>
-                  <div className="bg-gradient-to-br from-green-900/95 to-emerald-900/85 p-6 rounded-xl backdrop-blur-sm border border-green-700/30 w-80">
+                  <div className="bg-gradient-to-br from-green-900/95 to-emerald-900/85 p-4 md:p-6 rounded-xl backdrop-blur-sm border border-green-700/30 w-full max-w-80 mx-auto">
                     <h3 className="text-green-400 font-bold text-lg mb-3">{method.name}</h3>
                     <p className="text-gray-300 text-sm mb-4">{method.description}</p>
                     <div className="space-y-4">
