@@ -2,7 +2,7 @@ import React from 'react';
 
 const AboutUs: React.FC = () => {
   return (
-    <section id="about" className="bg-gray-900 text-white py-16 px-6 md:px-12 lg:px-32">
+    <section style={{backgroundColor: 'rgb(119, 116, 101)'}} id="about" className="bg-gray-900 text-white py-16 px-6 md:px-12 lg:px-32">
       <div className="max-w-4xl mx-auto text-center">
         <h2 className="text-4xl font-bold mb-6 text-yellow-400">Acerca de Nosotros</h2>
         <p className="text-lg leading-relaxed">
@@ -22,6 +22,8 @@ const AboutUs: React.FC = () => {
       </div>
     </section>
   );
+  
 };
+
 
 export default AboutUs;

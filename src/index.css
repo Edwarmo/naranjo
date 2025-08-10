@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 .slick-prev:before, .slick-next:before {
-  color: #4b2e1e;
+  color: #5c3b29;
 }
 .slick-slide {
   padding: 0 10px;

@@ -399,7 +399,7 @@ const Productos = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-amber-900 via-amber-800 to-amber-900 relative overflow-hidden">
+    <div style={{backgroundColor: 'rgb(119, 116, 101)'}} className="min-h-screen  relative overflow-hidden">
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-10">
         <div className="absolute inset-0" style={{

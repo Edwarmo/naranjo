@@ -14,7 +14,7 @@ const Footer: React.FC = () => {
           <div>
             <h3 className="text-lg font-bold mb-3">Alforja Café</h3>
             <p className="text-sm text-amber-100">
-              Tu tienda de confianza para repuestos automotrices de alta calidad.
+              Tu tienda de confianza para cafe  de alta calidad.
             </p>
           </div>
 
