@@ -15,9 +15,11 @@ interface Method {
 
 const Methods: React.FC = () => {
   const [scrollY, setScrollY] = useState(0);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [showSearch, setShowSearch] = useState(false);
   const { addToCart } = useCart();
 
-  const methods: Method[] = [
+  const allMethods: Method[] = [
     {
       id: 101,
       name: 'Método V60',
@@ -64,6 +66,10 @@ const Methods: React.FC = () => {
     }
   ];
 
+  const methods = allMethods.filter(method => 
+    method.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   useEffect(() => {
     const handleScroll = () => setScrollY(window.scrollY);
     window.addEventListener('scroll', handleScroll);
@@ -89,13 +95,41 @@ const Methods: React.FC = () => {
         <h1 className="text-4xl md:text-5xl font-bold mb-6">
           Nuestros <span className="text-yellow-300">Métodos</span>
         </h1>
-        <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+        <p className="text-xl text-gray-300 max-w-3xl mx-auto mb-8">
           Cada método tiene una historia única y ofrece una experiencia de café diferente
         </p>
+        
+        {/* Barra de búsqueda */}
+        <div className="flex justify-center px-6 mb-8">
+          {showSearch && (
+            <input
+              type="text"
+              placeholder="Buscar método..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              onBlur={() => !searchTerm && setShowSearch(false)}
+              autoFocus
+              className="mr-2 px-4 py-2 bg-gray-800 text-white rounded-lg border border-gray-600 focus:border-yellow-300 focus:outline-none focus:ring-2 focus:ring-yellow-300/20"
+            />
+          )}
+          <div 
+            onClick={() => setShowSearch(!showSearch)}
+            className="w-10 h-10 bg-gray-800 rounded-lg border border-gray-600 flex items-center justify-center cursor-pointer hover:bg-gray-700"
+          >
+            <svg className="w-5 h-5 text-gray-400 hover:text-yellow-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+          </div>
+        </div>
       </div>
 
       {/* Methods Sections */}
-      {methods.map((method, index) => {
+      {methods.length === 0 ? (
+        <div className="text-center py-20">
+          <p className="text-xl text-gray-400">No se encontraron métodos que coincidan con tu búsqueda</p>
+        </div>
+      ) : (
+        methods.map((method, index) => {
         const sectionOffset = index * 800;
         const progress = Math.max(0, Math.min(1, (scrollY - sectionOffset) / 600));
         const imageWidth = progress > 0.3 ? '24rem' : '100vw';
@@ -116,9 +150,13 @@ const Methods: React.FC = () => {
         };
         
         return (
-          <div key={method.id} className={`h-screen flex justify-center items-center px-6 md:px-20 transition-all duration-1000 ease-out relative ${
-            getEntryDirection()
-          }`}>
+          <div 
+            key={method.id} 
+            className={`h-screen flex justify-center items-center px-6 md:px-20 transition-all duration-1000 ease-out relative ${
+              getEntryDirection()
+            }`}
+            {...(index === 0 ? { 'data-first-method': true } : {})}
+          >
             {/* Fondo de colores detrás de la imagen */}
             <div 
               className="absolute inset-0 transition-all duration-1000 ease-out"
@@ -209,7 +247,8 @@ const Methods: React.FC = () => {
 
           </div>
         );
-      })}
+      })
+      )}
       
       <Footer />
     </div>

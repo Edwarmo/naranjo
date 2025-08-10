@@ -32,6 +32,8 @@ const Productos = () => {
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [selectedOptions, setSelectedOptions] = useState<ProductOption[]>([]);
   const [quantity, setQuantity] = useState(1);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [showSearch, setShowSearch] = useState(false);
   
   // Organizar productos por categorías con imágenes y tipos
   const productCategories = {
@@ -411,9 +413,41 @@ const Productos = () => {
       <div className="relative z-10 py-12 px-4">
         <h2 className="text-3xl font-extrabold text-white mb-8 text-center">Productos</h2>
         
+        {/* Barra de búsqueda */}
+        <div className="flex justify-center px-6 mb-8">
+          {showSearch && (
+            <input
+              type="text"
+              placeholder="Buscar producto..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              onBlur={() => !searchTerm && setShowSearch(false)}
+              autoFocus
+              className="mr-2 px-4 py-2 bg-white/10 backdrop-blur-sm text-white placeholder-white/70 rounded-lg border border-white/20 focus:border-amber-300 focus:outline-none focus:ring-2 focus:ring-amber-300/20"
+            />
+          )}
+          <div 
+            onClick={() => setShowSearch(!showSearch)}
+            className="w-10 h-10 bg-white/10 backdrop-blur-sm rounded-lg border border-white/20 flex items-center justify-center cursor-pointer hover:bg-white/20"
+          >
+            <svg className="w-5 h-5 text-white/70 hover:text-amber-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+          </div>
+        </div>
+        
         <div className="space-y-12">
-          {Object.entries(productCategories).map(([category, products]) => (
-            <div key={category} className="space-y-6">
+          {Object.entries(productCategories).map(([category, products]) => {
+            const filteredProducts = products.filter(product => 
+              product.name.toLowerCase().includes(searchTerm.toLowerCase())
+            );
+            
+            if (filteredProducts.length === 0) return null;
+            
+            const isFirstCategory = Object.keys(productCategories)[0] === category;
+            
+            return (
+            <div key={category} className="space-y-6" {...(isFirstCategory ? { 'data-first-product': true } : {})}>
               {/* Category Header */}
               <div className="text-center">
                 <h3 className="text-2xl font-bold text-amber-300 mb-2">{category}</h3>
@@ -423,7 +457,7 @@ const Productos = () => {
               {/* Horizontal Scrollable Carousel */}
               <div className="relative">
                 <div className="flex space-x-6 overflow-x-auto pb-4" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
-                  {products.map((product) => (
+                  {filteredProducts.map((product) => (
                     <div 
                       key={product.id} 
                       className="bg-white/95 backdrop-blur-sm rounded-lg shadow-lg min-w-[280px] hover:shadow-xl transition-all duration-300 hover:scale-105 flex flex-col cursor-pointer border border-amber-200/20"
@@ -461,7 +495,7 @@ const Productos = () => {
                 
                 {/* Scroll Indicators */}
                 <div className="flex justify-center mt-4 space-x-2">
-                  {products.map((_, index) => (
+                  {filteredProducts.map((_, index) => (
                     <div 
                       key={index}
                       className="w-2 h-2 bg-amber-400 rounded-full opacity-50"
@@ -470,7 +504,19 @@ const Productos = () => {
                 </div>
               </div>
             </div>
-          ))}
+            );
+          })}
+          
+          {/* Mensaje cuando no hay resultados */}
+          {Object.values(productCategories).every(products => 
+            products.filter(product => 
+              product.name.toLowerCase().includes(searchTerm.toLowerCase())
+            ).length === 0
+          ) && searchTerm && (
+            <div className="text-center py-20">
+              <p className="text-xl text-white/70">No se encontraron productos que coincidan con tu búsqueda</p>
+            </div>
+          )}
         </div>
       </div>
 
