@@ -8,6 +8,7 @@ const HomePage: React.FC = () => {
   const [isLogoVisible, setIsLogoVisible] = useState(false);
   const [isContentVisible, setIsContentVisible] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [shouldShrinkVideo, setShouldShrinkVideo] = useState(false);
 
   useEffect(() => {
     // Mostrar logo después de 500ms
@@ -15,9 +16,10 @@ const HomePage: React.FC = () => {
       setIsLogoVisible(true);
     }, 500);
 
-    // Mostrar contenido después de 5 segundos
+    // Mostrar contenido y activar el encogimiento del video después de 5 segundos
     const contentTimer = setTimeout(() => {
       setIsContentVisible(true);
+      setShouldShrinkVideo(true); // Set state to shrink video after 5 seconds
     }, 5000);
 
     return () => {
@@ -39,7 +41,7 @@ const HomePage: React.FC = () => {
       {/* Sección principal con video de fondo */}
       <div className="relative min-h-screen overflow-hidden">
         {/* Video de fondo */}
-        <div className="absolute inset-0 z-0">
+        <div className={`absolute inset-0 z-0 }`}>
           <video
             autoPlay
             muted
